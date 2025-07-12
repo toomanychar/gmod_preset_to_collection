@@ -47,7 +47,11 @@ if len(addons) == 0:
 # Generate js script
 script = 'let addons = ["' + '","'.join(addons) + '"];\n'
 script += """for (let addonId of addons) {
-	ToggleChildInCollection('choice_MySubscribedItems_' + addonId, addonId);
+	try {
+		ToggleChildInCollection('choice_MySubscribedItems_' + addonId, addonId);
+	} catch (error) {
+		console.error(error);
+	}
 }"""
 with open("into_collection.js", "w") as f:
 	f.write(script)
